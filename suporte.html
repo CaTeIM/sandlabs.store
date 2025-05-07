@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandlabs - Suporte</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo Sandlabs">
+      <span>Sandlabs</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="termos.html">Termos</a></li>
+        <li><a href="suporte.html" class="active">Suporte</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="sobre-section">
+    <h2>Suporte</h2>
+    <p style="text-align: center;">Entre em contato pelos canais abaixo:</p>
+
+    <!-- Container geral para as caixas de suporte -->
+    <div class="support-container">
+      <!-- Twitter -->
+      <a href="https://x.com/SandLabs_21" target="_blank" class="support-item">
+        <img src="images/twitter.png" alt="Twitter">
+        <span>Twitter</span>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/44997272087" target="_blank" class="support-item">
+        <img src="images/whats.png" alt="WhatsApp">
+        <span>WhatsApp</span>
+      </a>
+
+      <!-- Telegram -->
+      <a href="https://t.me/SandLabs_21" target="_blank" class="support-item">
+        <img src="images/telegram.png" alt="Telegram">
+        <span>Telegram</span>
+      </a>
+    </div>
+  </main>
+</body>
+</html>
+
+
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    // Verifica se a URL possui o parâmetro "cupom"
+    const urlParams = new URLSearchParams(window.location.search);
+    let cupom = urlParams.get("cupom");
+    if (cupom) {
+      // Se existir, armazena no localStorage para persistir entre as páginas
+      localStorage.setItem("cupom", cupom);
+    } else {
+      // Se não houver, tenta recuperar do localStorage
+      cupom = localStorage.getItem("cupom");
+    }
+    if (cupom) {
+      // Preenche automaticamente os campos de cupom (em todas as modais ou formulários que tenham name="cupom" ou "kruxCupom")
+      document.querySelectorAll("input[name='cupom'], input[name='kruxCupom']").forEach(input => {
+        input.value = cupom;
+      });
+      // Atualiza os links internos para que o parâmetro "cupom" seja adicionado (assim o cupom acompanha a navegação)
+      document.querySelectorAll("a").forEach(link => {
+        let href = link.getAttribute("href");
+        // Se for link relativo e ainda não possuir o parâmetro "cupom"
+        if (href && !href.startsWith("http") && href.indexOf("cupom=") === -1) {
+          if (href.indexOf("?") !== -1) {
+            href += `&cupom=${encodeURIComponent(cupom)}`;
+          } else {
+            href += `?cupom=${encodeURIComponent(cupom)}`;
+          }
+          link.setAttribute("href", href);
+        }
+      });
+    }
+  });
+</script>

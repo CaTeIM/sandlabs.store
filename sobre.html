@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandlabs - Sobre Sandmann</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo Sandlabs">
+      <span>Sandlabs</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html" class="active">Sobre</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="termos.html">Termos</a></li>
+        <li><a href="suporte.html">Suporte</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="sobre-section">
+    <h2>Sobre Sandmann</h2>
+    <p>
+      Sou um engenheiro entusiasta de hardware que encontrou, no universo do Bitcoin, 
+      uma oportunidade extraordinária de levar soberania para as mãos dos usuários. 
+      A cada projeto, meu objetivo é oferecer soluções de hardware Bitcoin totalmente 
+      open source para o público brasileiro, tornando essa tecnologia mais acessível 
+      e segura para todos.
+    </p>
+    <p>
+      Meu carro-chefe atualmente é a Jade DIY, uma carteira de hardware Bitcoin open source 
+      que fabrico a um custo acessível para o mercado nacional. Além disso, ensino outras 
+      pessoas a construírem suas próprias hardware wallets, fornecendo também serviços 
+      de impressão 3D para garantir acabamento de qualidade e maior praticidade nos dispositivos.
+    </p>
+    <p>
+      Também participo ativamente de iniciativas de fabricação de mineradores caseiros, 
+      como BitAxes, NerdAxes, NerdNos e NerdQAxes, prestando manutenção e produzindo 
+      essas unidades. Gosto de explorar diversas frentes, mas meu hardware favorito 
+      para Bitcoin é um confiável chip K210, quando integrado ao firmware Krux, 
+      atingindo assim o equilíbrio ideal entre segurança e usabilidade.
+    </p>
+    <p>
+      Estou trabalhando para lançar, em breve, uma versão desse dispositivo a preços 
+      acessíveis, abrindo caminho para que mais pessoas, tanto no Brasil quanto no 
+      restante do mundo, possam se beneficiar de soluções abertas e independentes 
+      no ecossistema Bitcoin.
+    </p>
+
+    <!-- Seção de links (Twitter e YouTube) -->
+    <h2 style="text-align:center; margin-top:2rem;">Meus Canais</h2>
+    <p style="text-align: center;">
+      Acompanhe meu trabalho também nas redes abaixo:
+    </p>
+
+    <div class="support-container" style="margin-top: 1rem;">
+      <!-- Twitter -->
+      <a href="https://x.com/SandLabs_21" target="_blank" class="support-item">
+        <img src="images/twitter.png" alt="Twitter">
+        <span>Twitter</span>
+      </a>
+
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@Sandmann_21" target="_blank" class="support-item">
+        <img src="images/youtube.png" alt="YouTube">
+        <span>YouTube</span>
+      </a>
+    </div>
+  </main>
+</body>
+</html>
+
+
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    // Verifica se a URL possui o parâmetro "cupom"
+    const urlParams = new URLSearchParams(window.location.search);
+    let cupom = urlParams.get("cupom");
+    if (cupom) {
+      // Se existir, armazena no localStorage para persistir entre as páginas
+      localStorage.setItem("cupom", cupom);
+    } else {
+      // Se não houver, tenta recuperar do localStorage
+      cupom = localStorage.getItem("cupom");
+    }
+    if (cupom) {
+      // Preenche automaticamente os campos de cupom (em todas as modais ou formulários que tenham name="cupom" ou "kruxCupom")
+      document.querySelectorAll("input[name='cupom'], input[name='kruxCupom']").forEach(input => {
+        input.value = cupom;
+      });
+      // Atualiza os links internos para que o parâmetro "cupom" seja adicionado (assim o cupom acompanha a navegação)
+      document.querySelectorAll("a").forEach(link => {
+        let href = link.getAttribute("href");
+        // Se for link relativo e ainda não possuir o parâmetro "cupom"
+        if (href && !href.startsWith("http") && href.indexOf("cupom=") === -1) {
+          if (href.indexOf("?") !== -1) {
+            href += `&cupom=${encodeURIComponent(cupom)}`;
+          } else {
+            href += `?cupom=${encodeURIComponent(cupom)}`;
+          }
+          link.setAttribute("href", href);
+        }
+      });
+    }
+  });
+</script>
