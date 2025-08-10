@@ -1,4 +1,5 @@
-// /js/produtos-data.js  (NOVO ARQUIVO) — adicione novos produtos aqui
+// /js/produtos-data.js  (SUBSTITUIR TODO O ARQUIVO)
+// Mantém TODAS as infos do antigo e adiciona suporte a `badge` (selo opcional)
 window.PRODUTOS = [
   {
     id: 'jade',
@@ -35,7 +36,8 @@ window.PRODUTOS = [
       ]}
     ],
     allowAddOnSeed: true,
-    buyButtonText: 'Comprar Jade DIY'
+    buyButtonText: 'Comprar Jade DIY',
+    badge: { text:'Promo', variant:'promo' }   // ← selo opcional
   },
 
   {
@@ -63,7 +65,8 @@ window.PRODUTOS = [
       ]}
     ],
     allowAddOnSeed: true,
-    buyButtonText: 'Comprar Modcase'
+    buyButtonText: 'Comprar Modcase',
+    badge: { text:'Novo', variant:'new' }
   },
 
   {
@@ -84,7 +87,8 @@ window.PRODUTOS = [
       ]}
     ],
     allowAddOnSeed: true,
-    buyButtonText: 'Comprar NerdMiner'
+    buyButtonText: 'Comprar NerdMiner',
+    badge: null
   },
 
   {
@@ -106,6 +110,7 @@ window.PRODUTOS = [
       { type: 'seedPack' }  // radios "kit" e "single" + quantidade
     ],
     allowAddOnSeed: false,
-    buyButtonText: 'Comprar SandSeed'
+    buyButtonText: 'Comprar SandSeed',
+    badge: { text:'Sats', variant:'neutral' }
   }
 ];

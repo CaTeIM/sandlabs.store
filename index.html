@@ -1,4 +1,4 @@
-<!-- /index.html  (SUBSTITUIR TODO O ARQUIVO) -->
+<!-- /index.html (SUBSTITUIR TODO O ARQUIVO) -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,14 +8,10 @@
   <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body class="theme-dark">
-  <!-- Fundo orgânico -->
   <div class="bg-blobs" aria-hidden="true">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
   </div>
 
-  <!-- Cabeçalho -->
   <header class="site-header glass">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Logo Sandlabs" class="brand-logo"/>
@@ -31,7 +27,7 @@
   </header>
 
   <main>
-    <!-- Hero com imagem de fundo orgânica (imagem definida no CSS via --hero-bg) -->
+    <!-- Hero com imagem de fundo orgânica (definida no CSS: ../images/produto.png) -->
     <section class="hero hero-with-bg">
       <div class="hero-inner glass soft-shadow">
         <div class="hero-badge">open source • self-custody • segurança</div>
@@ -46,41 +42,13 @@
       </div>
     </section>
 
-    <!-- Destaques -->
+    <!-- Lista dinâmica com TODOS os produtos do produtos-data.js -->
     <section class="section">
       <div class="section-head">
         <h2 class="section-title">Destaques</h2>
         <p class="section-sub">Escolha o seu caminho para a autocustódia.</p>
       </div>
-
-      <div class="grid cards-3">
-        <article class="card product soft-shadow hover-lift" onclick="location.href='produtos.html'">
-          <div class="card-media"><img src="images/produto1.png" alt="Jade DIY"/></div>
-          <div class="card-body">
-            <h3 class="card-title">Jade DIY</h3>
-            <p class="card-text">Carteira de hardware open-source, segura e flexível.</p>
-            <div class="price-line"><span>R$ 230</span><span class="muted">Box + R$ 70</span></div>
-          </div>
-        </article>
-
-        <article class="card product soft-shadow hover-lift" onclick="location.href='produtos.html'">
-          <div class="card-media"><img src="images/produto2.png" alt="Krux Yahboom Modcase"/></div>
-          <div class="card-body">
-            <h3 class="card-title">Krux Yahboom Modcase</h3>
-            <p class="card-text">Modcase com bateria. Placa não inclusa.</p>
-            <div class="price-line"><span>R$ 250</span><span class="muted">Box + R$ 89</span></div>
-          </div>
-        </article>
-
-        <article class="card product soft-shadow hover-lift" onclick="location.href='produtos.html'">
-          <div class="card-media"><img src="images/nm1.png" alt="Nerdminer"/></div>
-          <div class="card-body">
-            <h3 class="card-title">Nerdminer</h3>
-            <p class="card-text">Minerador portátil ESP32 • ~55 KH/s.</p>
-            <div class="price-line"><span>R$ 170</span></div>
-          </div>
-        </article>
-      </div>
+      <div id="home-products" class="grid cards-3"></div>
     </section>
 
     <section class="section section-cta">
@@ -96,7 +64,8 @@
     <p class="muted">© Sandlabs • Open source de ponta a ponta.</p>
   </footer>
 
-  <script src="js/config.js"></script>
+  <script src="js/produtos-data.js"></script>
+  <script src="js/render-home.js"></script>
   <script src="js/cupom.js"></script>
 </body>
 </html>
