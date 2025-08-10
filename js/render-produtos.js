@@ -20,20 +20,27 @@
   }
 
   /* Galeria por produto */
-  function buildGallery(prod) {
-    const g = el('div', { class:'galeria' });
-    const fullPaths = prod.imagens.map(src => src);
-    prod.imagens.forEach((src, i) => {
-      const img = el('img', { src, alt: `${prod.nome} ${i+1}` });
-      img.addEventListener('click', () => {
-        if (window.lightbox && typeof lightbox.open === 'function') {
-          lightbox.open(fullPaths, i);
-        }
-      });
-      g.appendChild(img);
+function buildGallery(prod) {
+  const g = el('div', { class:'galeria' });
+  const fullPaths = prod.imagens.map(src => src);
+  prod.imagens.forEach((src, i) => {
+    const img = el('img', {
+      src,
+      alt: `${prod.nome} ${i + 1}`,
+      loading: 'lazy',
+      decoding: 'async',
+      /* ajuda o browser a escolher o tamanho ideal da imagem em cada breakpoint */
+      sizes: '(min-width:1200px) 300px, (min-width:768px) 33vw, 50vw'
     });
-    return g;
-  }
+    img.addEventListener('click', () => {
+      if (window.lightbox && typeof lightbox.open === 'function') {
+        lightbox.open(fullPaths, i);
+      }
+    });
+    g.appendChild(img);
+  });
+  return g;
+}
 
   /* Caixa de descrição + botão comprar */
   function buildDescBox(prod) {

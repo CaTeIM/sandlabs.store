@@ -166,20 +166,38 @@ body.modal-open{
 /* ===================== */
 .sobre-section{padding:var(--space-5) var(--space-2); max-width:var(--maxw); margin:0 auto}
 .produto-section{
-  border:1px solid var(--border); border-radius:var(--radius); padding:var(--space-4);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:var(--space-4);
   background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+  max-width: var(--maxw);   /* ← garante que não estique demais em telas grandes */
+  margin: var(--space-4) auto;
 }
 .produto-section + .produto-section{margin-top:var(--space-4)}
 .produto-section h3{font-size:1.35rem; margin-bottom:var(--space-2)}
 .galeria{
-  display:grid; gap:12px; margin-bottom:var(--space-2);
-  grid-template-columns:repeat(4, minmax(0,1fr));
+  display:grid;
+  gap:14px;
+  /* Cada thumb terá entre 200px e 320px, repetindo automaticamente */
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 22vw, 320px), 1fr));
+  justify-content:center;   /* centraliza quando sobrar espaço */
 }
 .galeria img{
-  width:100%; height:160px; object-fit:cover; border-radius:12px;
-  border:1px solid var(--border); cursor:pointer; transition:transform .2s, box-shadow .2s, border-color .2s;
+  display:block;
+  width:100%;
+  height:auto;             /* altura livre */
+  aspect-ratio: 4 / 3;     /* ← ajuste aqui se preferir 16/10, 1/1, etc. */
+  object-fit: cover;       /* corte suave mantendo foco central */
+  border-radius:12px;
+  border:1px solid var(--border);
+  cursor:pointer;
+  transition:transform .2s, box-shadow .2s, border-color .2s;
 }
-.galeria img:hover{transform:translateY(-2px); box-shadow:var(--shadow-sm); border-color:rgba(255,255,255,.2)}
+.galeria img:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-sm);
+  border-color:rgba(255,255,255,.2);
+}
 
 .desc-box{
   border:1px solid var(--border); border-radius:var(--radius-sm);
