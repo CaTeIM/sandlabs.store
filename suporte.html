@@ -1,87 +1,75 @@
+<!-- /suporte.html  (SUBSTITUIR TODO O ARQUIVO) -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandlabs - Suporte</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Sandlabs — Suporte</title>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body>
-  <header>
-    <div class="logo">
-      <img src="images/logo.png" alt="Logo Sandlabs">
-      <span>Sandlabs</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="termos.html">Termos</a></li>
-        <li><a href="suporte.html" class="active">Suporte</a></li>
-      </ul>
+<body class="theme-dark">
+  <!-- Fundo orgânico -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+  </div>
+
+  <!-- Cabeçalho -->
+  <header class="site-header glass">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Logo Sandlabs" class="brand-logo"/>
+      <span class="brand-name">Sandlabs</span>
+    </a>
+    <nav class="site-nav">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="sobre.html">Sobre</a>
+      <a class="nav-link" href="produtos.html">Produtos</a>
+      <a class="nav-link" href="termos.html">Termos</a>
+      <a class="nav-link active" href="suporte.html">Suporte</a>
     </nav>
   </header>
 
-  <main class="sobre-section">
-    <h2>Suporte</h2>
-    <p style="text-align: center;">Entre em contato pelos canais abaixo:</p>
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <h1 class="section-title">Suporte</h1>
+        <p class="section-sub">Escolha um canal e fale diretamente comigo.</p>
+      </div>
 
-    <!-- Container geral para as caixas de suporte -->
-    <div class="support-container">
-      <!-- Twitter -->
-      <a href="https://x.com/SandLabs_21" target="_blank" class="support-item">
-        <img src="images/twitter.png" alt="Twitter">
-        <span>Twitter</span>
-      </a>
+      <div class="grid cards-3">
+        <article class="card soft-shadow hover-lift">
+          <div class="card-body">
+            <h3 class="card-title">WhatsApp</h3>
+            <p class="card-text">Conversa rápida e direta.</p>
+            <a class="btn btn-accent" href="https://wa.me/5544997272087" target="_blank" rel="noopener">Abrir WhatsApp</a>
+          </div>
+        </article>
 
-      <!-- WhatsApp -->
-      <a href="https://wa.me/44997272087" target="_blank" class="support-item">
-        <img src="images/whats.png" alt="WhatsApp">
-        <span>WhatsApp</span>
-      </a>
+        <article class="card soft-shadow hover-lift">
+          <div class="card-body">
+            <h3 class="card-title">Telegram</h3>
+            <p class="card-text">Atendimento e atualizações.</p>
+            <a class="btn btn-accent" href="https://t.me/SandLabs_21" target="_blank" rel="noopener">Abrir Telegram</a>
+          </div>
+        </article>
 
-      <!-- Telegram -->
-      <a href="https://t.me/SandLabs_21" target="_blank" class="support-item">
-        <img src="images/telegram.png" alt="Telegram">
-        <span>Telegram</span>
-      </a>
-    </div>
+        <article class="card soft-shadow hover-lift">
+          <div class="card-body">
+            <h3 class="card-title">Twitter / X</h3>
+            <p class="card-text">Novidades, bastidores e dicas.</p>
+            <a class="btn btn-accent" href="https://x.com/SandLabs_21" target="_blank" rel="noopener">Abrir Twitter</a>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p class="muted">© Sandlabs • Open source de ponta a ponta.</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/cupom.js"></script>
 </body>
 </html>
-
-
-<script>
-  window.addEventListener("DOMContentLoaded", function() {
-    // Verifica se a URL possui o parâmetro "cupom"
-    const urlParams = new URLSearchParams(window.location.search);
-    let cupom = urlParams.get("cupom");
-    if (cupom) {
-      // Se existir, armazena no localStorage para persistir entre as páginas
-      localStorage.setItem("cupom", cupom);
-    } else {
-      // Se não houver, tenta recuperar do localStorage
-      cupom = localStorage.getItem("cupom");
-    }
-    if (cupom) {
-      // Preenche automaticamente os campos de cupom (em todas as modais ou formulários que tenham name="cupom" ou "kruxCupom")
-      document.querySelectorAll("input[name='cupom'], input[name='kruxCupom']").forEach(input => {
-        input.value = cupom;
-      });
-      // Atualiza os links internos para que o parâmetro "cupom" seja adicionado (assim o cupom acompanha a navegação)
-      document.querySelectorAll("a").forEach(link => {
-        let href = link.getAttribute("href");
-        // Se for link relativo e ainda não possuir o parâmetro "cupom"
-        if (href && !href.startsWith("http") && href.indexOf("cupom=") === -1) {
-          if (href.indexOf("?") !== -1) {
-            href += `&cupom=${encodeURIComponent(cupom)}`;
-          } else {
-            href += `?cupom=${encodeURIComponent(cupom)}`;
-          }
-          link.setAttribute("href", href);
-        }
-      });
-    }
-  });
-</script>
