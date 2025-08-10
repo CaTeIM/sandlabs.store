@@ -49,6 +49,18 @@
     <p class="muted">Dúvidas? <a href="suporte.html">Fale conosco</a>.</p>
   </footer>
 
+  <!-- LIGHTBOX com estrutura melhorada para rolagem -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button class="close-btn" data-action="close" aria-label="Fechar">×</button>
+      <figure class="lightbox-figure">
+        <img id="imagemModal" alt="Imagem expandida">
+      </figure>
+      <button class="nav-btn prev-btn" data-action="prev" aria-label="Anterior">&#10094;</button>
+      <button class="nav-btn next-btn" data-action="next" aria-label="Próxima">&#10095;</button>
+    </div>
+  </div>
+
   <!-- Scripts (ordem importa) -->
   <script src="js/config.js"></script>
   <script src="js/produtos-data.js"></script>

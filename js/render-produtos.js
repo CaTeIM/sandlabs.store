@@ -1,5 +1,6 @@
-// /js/render-produtos.js  (NOVO ARQUIVO)
+// /js/render-produtos.js — ARQUIVO COMPLETO
 (function(){
+  /* Utilitário para criar elementos */
   function el(tag, attrs = {}, html) {
     const e = document.createElement(tag);
     Object.entries(attrs).forEach(([k, v]) => {
@@ -12,22 +13,29 @@
     return e;
   }
 
+  /* Lista de preços HTML */
   function priceListHTML(precos) {
     if (!Array.isArray(precos)) return '';
     return precos.map(p => `<p><strong>${p.label}:</strong> ${p.valor}</p>`).join('');
   }
 
+  /* Galeria por produto */
   function buildGallery(prod) {
     const g = el('div', { class:'galeria' });
-    const fullPaths = prod.imagens.map(src => src); // já com 'images/...'
+    const fullPaths = prod.imagens.map(src => src);
     prod.imagens.forEach((src, i) => {
       const img = el('img', { src, alt: `${prod.nome} ${i+1}` });
-      img.addEventListener('click', () => lightbox.open(fullPaths, i));
+      img.addEventListener('click', () => {
+        if (window.lightbox && typeof lightbox.open === 'function') {
+          lightbox.open(fullPaths, i);
+        }
+      });
       g.appendChild(img);
     });
     return g;
   }
 
+  /* Caixa de descrição + botão comprar */
   function buildDescBox(prod) {
     const box = el('div', { class:'desc-box' });
     box.appendChild(el('h3', {}, `Informações sobre ${prod.nome}`));
@@ -35,7 +43,7 @@
     box.insertAdjacentHTML('beforeend', priceListHTML(prod.preco));
 
     const infoBtn = el('button', { class:'info-btn' }, '+ Informações');
-    const infoArea = el('div', { style:'display:none;margin-top:1rem' }, prod.detalhesHTML);
+    const infoArea = el('div', { style:'display:none;margin-top:1rem' }, prod.detalhesHTML || '');
     infoBtn.addEventListener('click', () => {
       infoArea.style.display = (infoArea.style.display === 'none') ? 'block' : 'none';
     });
@@ -49,6 +57,7 @@
     return box;
   }
 
+  /* Seção completa do produto */
   function sectionProduto(prod) {
     const sec = el('section', { class:'produto-section' });
     sec.appendChild(el('h3', {}, prod.nome));
@@ -62,10 +71,10 @@
     let modal = document.getElementById('modal-compra');
     if (modal) return modal;
 
-    modal = el('div', { id:'modal-compra', class:'modal' });
+    modal = el('div', { id:'modal-compra', class:'modal', role:'dialog', 'aria-modal':'true' });
     modal.innerHTML = `
       <div class="modal-content">
-        <span class="close" data-close>&times;</span>
+        <button class="close" data-close aria-label="Fechar">&times;</button>
         <img src="images/cor_exemplo.png" class="demo" alt="Demonstração">
         <h3 id="mc-title"></h3>
         <form id="mc-form"></form>
@@ -73,8 +82,11 @@
     `;
     document.body.appendChild(modal);
 
+    /* Fechar clicando fora da caixa ou no X */
     modal.addEventListener('click', (e) => {
-      if (e.target.dataset.close !== undefined || e.target === modal) {
+      const content = modal.querySelector('.modal-content');
+      const clickedOutside = !content.contains(e.target);
+      if (e.target.hasAttribute('data-close') || clickedOutside) {
         closePurchaseModal();
       }
     });
@@ -85,6 +97,17 @@
   function closePurchaseModal() {
     const modal = document.getElementById('modal-compra');
     if (modal) modal.style.display = 'none';
+
+    // Libera rolagem do fundo
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+
+    // Remove handler de ESC
+    window.removeEventListener('keydown', onEscClose);
+  }
+
+  function onEscClose(e){
+    if (e.key === 'Escape') closePurchaseModal();
   }
 
   function openPurchaseModal(prod) {
@@ -92,9 +115,9 @@
     const title = modal.querySelector('#mc-title');
     const form  = modal.querySelector('#mc-form');
     title.textContent = `Opções para ${prod.nome}`;
-    form.innerHTML = ''; // limpa
+    form.innerHTML = '';
 
-    // Monta os grupos de opções conforme definição do produto
+    /* Monta os grupos de opções conforme definição do produto */
     (prod.options || []).forEach(opt => {
       if (opt.type === 'colorPair') {
         const group = el('div', { class:'group' });
@@ -102,7 +125,9 @@
         opt.inputs.forEach(inp => {
           group.appendChild(el('p', {}, inp.label + ':'));
           const grid = el('div', { class:'option-grid' });
-          buildColorSelector(grid, inp.name);
+          if (typeof buildColorSelector === 'function') {
+            buildColorSelector(grid, inp.name);
+          }
           group.appendChild(grid);
         });
         form.appendChild(group);
@@ -112,7 +137,9 @@
         const group = el('div', { class:'group' });
         group.appendChild(el('p', {}, `<strong>${opt.title}</strong>`));
         const grid = el('div', { class:'option-grid' });
-        buildColorSelector(grid, opt.input.name);
+        if (typeof buildColorSelector === 'function') {
+          buildColorSelector(grid, opt.input.name);
+        }
         group.appendChild(grid);
         form.appendChild(group);
       }
@@ -148,7 +175,7 @@
       }
     });
 
-    // Add-on SandSeed (checkbox) quando permitido e produto não é 'sandseed'
+    /* Add-on SandSeed */
     if (prod.allowAddOnSeed && prod.id !== 'sandseed') {
       const groupAddon = el('div', { class:'group' });
       groupAddon.innerHTML = `
@@ -160,32 +187,41 @@
       form.appendChild(groupAddon);
     }
 
-    // CEP
+    /* CEP */
     const cepGroup = el('div', { class:'group' });
     cepGroup.appendChild(el('p', {}, 'CEP:'));
     cepGroup.appendChild(el('input', { type:'text', name:'cep', placeholder:'Seu CEP', required:true }));
     form.appendChild(cepGroup);
 
-    // Cupom
+    /* Cupom */
     const cupomGroup = el('div', { class:'group' });
     cupomGroup.appendChild(el('p', { style:'font-style:italic;color:#ccc' }, 'Cupom (opcional):'));
     cupomGroup.appendChild(el('input', { type:'text', name:'cupom', placeholder:'Cupom' }));
     form.appendChild(cupomGroup);
 
-    // Ações finais
+    /* Ações finais */
     const actions = el('div', { class:'final-actions' });
     const bWhats  = el('button', { type:'button', class:'final-btn' }, 'WhatsApp');
     const bTele   = el('button',  { type:'button', class:'final-btn' }, 'Telegram');
-    bWhats.addEventListener('click', () => finalizeCompra(form, prod.id, 'whats'));
-    bTele .addEventListener('click', () => finalizeCompra(form, prod.id, 'tele'));
+    bWhats.addEventListener('click', () => {
+      if (typeof finalizeCompra === 'function') finalizeCompra(form, prod.id, 'whats');
+    });
+    bTele .addEventListener('click', () => {
+      if (typeof finalizeCompra === 'function') finalizeCompra(form, prod.id, 'tele');
+    });
     actions.appendChild(bWhats);
     actions.appendChild(bTele);
     form.appendChild(actions);
 
-    // Exibe o modal
+    /* Exibe o modal e bloqueia rolagem do fundo */
     modal.style.display = 'block';
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
 
-    // Preenche cupom automaticamente se existir (cupom.js cuida globalmente, mas garantimos aqui)
+    /* Fecha com ESC */
+    window.addEventListener('keydown', onEscClose);
+
+    /* Preenche cupom salvo, se houver */
     const saved = localStorage.getItem('cupom');
     if (saved) {
       const cupomInput = form.querySelector('input[name="cupom"]');
@@ -195,13 +231,16 @@
 
   /* ===== Renderização da página de produtos =============================== */
   window.addEventListener('DOMContentLoaded', () => {
-    lightbox.mount();
+    if (window.lightbox && typeof lightbox.mount === 'function') {
+      lightbox.mount();
+    }
 
     const cont = document.getElementById('produtos-container');
-    cont.innerHTML = '';
-
-    (window.PRODUTOS || []).forEach(prod => {
-      cont.appendChild(sectionProduto(prod));
-    });
+    if (cont) {
+      cont.innerHTML = '';
+      (window.PRODUTOS || []).forEach(prod => {
+        cont.appendChild(sectionProduto(prod));
+      });
+    }
   });
 })();

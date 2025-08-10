@@ -1,4 +1,4 @@
-/* /css/style.css  (SUBSTITUIR TODO O ARQUIVO) */
+/* /css/style.css  — ARQUIVO COMPLETO */
 /* ===================== */
 /*      DESIGN TOKENS    */
 /* ===================== */
@@ -40,6 +40,13 @@ body{
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height:1.45;
   overflow-x:hidden;
+}
+
+/* Bloqueio de rolagem do fundo quando modal aberto */
+html.modal-open,
+body.modal-open{
+  overflow: hidden !important;
+  height: 100%;
 }
 
 /* ===================== */
@@ -193,16 +200,39 @@ body{
 /*         MODAL         */
 /* ===================== */
 .modal{
-  position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-  background:rgba(10,10,12,.75); z-index:9999; padding:var(--space-2)
+  position: fixed;
+  inset: 0;
+  display: none;                 /* será "block" ao abrir via JS */
+  overflow-y: auto;              /* rola o OVERLAY (não a página de fundo) */
+  -webkit-overflow-scrolling: touch;
+  background: rgba(10,10,12,.75);
+  z-index: 10050;                /* acima do lightbox (9000) */
+  padding: 24px 16px;            /* respiro nas bordas */
 }
 .modal-content{
-  width:min(680px, 92vw); border-radius:18px; border:1px solid var(--border);
-  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-  backdrop-filter: blur(14px); color:#fff; box-shadow:var(--shadow); position:relative; padding:22px
+  width: min(680px, 92vw);
+  margin: clamp(16px, 6vh, 48px) auto;   /* centralização vertical flexível */
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  backdrop-filter: blur(14px);
+  color: #fff;
+  box-shadow: var(--shadow);
+  position: relative;
+  padding: 22px;
+
+  /* Não trava a rolagem dentro da caixa; overlay cuida disso */
+  max-height: none;
+  overflow: visible;
 }
-.modal .close{position:absolute; top:10px; right:16px; font-size:28px; cursor:pointer; line-height:1}
-.modal img.demo{display:block; margin:0 auto 14px; max-width:100%; height:auto; border-radius:12px; border:1px solid var(--border)}
+.modal .close{
+  position:absolute; top:10px; right:16px; font-size:28px; cursor:pointer; line-height:1;
+  background:transparent; border:none; color:#fff;
+}
+.modal img.demo{
+  display:block; margin:0 auto 14px; max-width:100%; height:auto;
+  border-radius:12px; border:1px solid var(--border)
+}
 .group{
   background:rgba(255,255,255,.05); border:1px solid var(--border);
   padding:12px; border-radius:12px; margin-bottom:12px
@@ -228,17 +258,46 @@ body{
 /*       LIGHTBOX        */
 /* ===================== */
 .lightbox{
-  position:fixed; inset:0; display:none; place-items:center;
-  background:rgba(0,0,0,.88); z-index:10000
+  position:fixed; inset:0;
+  display:none;                 /* 'flex' ou 'grid' quando aberto por JS */
+  align-items:stretch; justify-content:center;
+  background:rgba(0,0,0,.88);
+  z-index:9000;                 /* abaixo do .modal */
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:2rem 1.25rem;
 }
-.lightbox img{max-width:86vw; max-height:86vh; object-fit:contain; border-radius:12px; border:1px solid var(--border)}
-.close-btn{position:absolute; top:1rem; right:1.5rem; font-size:2.5rem; cursor:pointer}
+.lightbox-inner{
+  position:relative;
+  min-height:100%;
+  width:min(96vw, 1200px);
+  margin:auto;
+  display:flex; align-items:center; justify-content:center;
+}
+.lightbox-figure{margin:0}
+.lightbox img{
+  max-width:min(92vw, 1100px);
+  max-height:calc(100vh - 180px);
+  width:auto; height:auto; object-fit:contain;
+  border-radius:12px; border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.close-btn{
+  position:absolute; top:.5rem; right:.75rem;
+  font-size:2.2rem; line-height:1; cursor:pointer; background:transparent; border:none; color:#fff;
+  padding:.25rem .5rem; border-radius:10px;
+}
+.close-btn:hover{color:var(--accent)}
 .nav-btn{
   position:absolute; top:50%; transform:translateY(-50%);
-  background:transparent; border:none; font-size:2rem; color:#fff; cursor:pointer; padding:0 1rem
+  background:rgba(0,0,0,.35); border:1px solid var(--border);
+  font-size:1.8rem; color:#fff; cursor:pointer; padding:.25rem .75rem; border-radius:10px;
 }
-.prev-btn{left:2rem} .next-btn{right:2rem}
-.nav-btn:hover{color:var(--accent)}
+.prev-btn{left:.5rem} .next-btn{right:.5rem}
+.nav-btn:hover{background:rgba(0,0,0,.55); color:var(--accent)}
+@media (max-height:700px){
+  .lightbox img{max-height:calc(100vh - 120px)}
+}
 
 /* ===================== */
 /*        FOOTER         */
