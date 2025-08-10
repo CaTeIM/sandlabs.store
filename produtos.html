@@ -3,36 +3,51 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Sandlabs – Produtos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Sandlabs — Produtos</title>
   <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body>
+<body class="theme-dark">
+  <!-- Fundo orgânico -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+  </div>
+
   <!-- Cabeçalho -->
-  <header>
-    <div class="logo">
-      <img src="images/logo.png" alt="Logo Sandlabs"><span>Sandlabs</span>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="produtos.html" class="active">Produtos</a></li>
-        <li><a href="termos.html">Termos</a></li>
-        <li><a href="suporte.html">Suporte</a></li>
-      </ul>
+  <header class="site-header glass">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Logo Sandlabs" class="brand-logo"/>
+      <span class="brand-name">Sandlabs</span>
+    </a>
+    <nav class="site-nav">
+      <a class="nav-link" href="index.html">Início</a>
+      <a class="nav-link" href="sobre.html">Sobre</a>
+      <a class="nav-link active" href="produtos.html">Produtos</a>
+      <a class="nav-link" href="termos.html">Termos</a>
+      <a class="nav-link" href="suporte.html">Suporte</a>
     </nav>
   </header>
 
-  <!-- Conteúdo -->
-  <main class="sobre-section">
-    <h2 style="text-align:center;margin-bottom:2rem">Galeria de Produtos</h2>
-    <!-- Container onde tudo será gerado dinamicamente -->
-    <div id="produtos-container"></div>
+  <main>
+    <!-- Título -->
+    <section class="section">
+      <div class="section-head">
+        <h1 class="section-title">Monte o seu</h1>
+        <p class="section-sub">Escolha cores, acessórios e finalize por WhatsApp ou Telegram.</p>
+      </div>
+    </section>
+
+    <!-- Produtos (gerado dinamicamente) -->
+    <section class="section">
+      <div id="produtos-container" class="stack-lg"></div>
+    </section>
   </main>
 
-  <!-- Modal genérico de compra (montado dinamicamente) -->
-  <!-- Lightbox também é montado dinamicamente -->
+  <footer class="site-footer">
+    <p class="muted">Dúvidas? <a href="suporte.html">Fale conosco</a>.</p>
+  </footer>
 
   <!-- Scripts (ordem importa) -->
   <script src="js/config.js"></script>
