@@ -1,11 +1,11 @@
-<!-- index.html (versão completa com Nerdminer ao lado de Jade e Krux) -->
+<!-- /index.html  (SUBSTITUIR TODO O ARQUIVO) -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sandlabs - Início</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
   <!-- CABEÇALHO -->
@@ -27,7 +27,6 @@
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main>
-    <!-- SEÇÃO HERO -->
     <section class="hero-section">
       <h1 class="hero-title">Seu dinheiro seguro de forma 100% open source</h1>
       <img src="images/produto.png" alt="Imagem Inicial" class="hero-image">
@@ -37,56 +36,33 @@
       </p>
     </section>
 
-    <!-- LISTA DE PRODUTOS LADO A LADO -->
+    <!-- Destaques simples (linkam para a página de produtos) -->
     <section class="products-home">
-      <!-- Jade DIY -->
       <div class="product-card" onclick="window.location.href='produtos.html'">
         <img src="images/produto1.png" alt="Jade DIY">
         <h3>Jade DIY</h3>
-        <p>Valor: 230 Jade</p>
-        <p>70 Box de Proteção</p>
+        <p>Valor: R$ 230</p>
+        <p>Box de Proteção: R$ 70</p>
       </div>
 
-      <!-- Krux Yahboom -->
       <div class="product-card" onclick="window.location.href='produtos.html'">
         <img src="images/produto2.png" alt="Krux Yahboom">
         <h3>Krux Yahboom Modcase</h3>
-        <p>Valor: 250 Krux Yahboom Modcase</p>
-        <p>89 Box de Proteção</p>
+        <p>Valor: R$ 250</p>
+        <p>Box de Proteção: R$ 89</p>
       </div>
 
-      <!-- Nerdminer -->
       <div class="product-card" onclick="window.location.href='produtos.html'">
         <img src="images/nm1.png" alt="Nerdminer">
         <h3>Nerdminer</h3>
-        <p>Valor: R$170</p>
+        <p>Valor: R$ 170</p>
         <p>Minerador portátil ESP32</p>
       </div>
     </section>
   </main>
+
+  <!-- Scripts globais mínimos -->
+  <script src="js/config.js"></script>
+  <script src="js/cupom.js"></script>
 </body>
 </html>
-
-<script>
-  window.addEventListener("DOMContentLoaded", function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    let cupom = urlParams.get("cupom");
-    if (cupom) {
-      localStorage.setItem("cupom", cupom);
-    } else {
-      cupom = localStorage.getItem("cupom");
-    }
-    if (cupom) {
-      document.querySelectorAll("input[name='cupom'], input[name='kruxCupom']").forEach(input => {
-        input.value = cupom;
-      });
-      document.querySelectorAll("a").forEach(link => {
-        let href = link.getAttribute("href");
-        if (href && !href.startsWith("http") && href.indexOf("cupom=") === -1) {
-          href += href.indexOf("?") !== -1 ? `&cupom=${encodeURIComponent(cupom)}` : `?cupom=${encodeURIComponent(cupom)}`;
-          link.setAttribute("href", href);
-        }
-      });
-    }
-  });
-</script>

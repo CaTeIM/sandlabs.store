@@ -1,36 +1,18 @@
+<!-- /produtos.html  (SUBSTITUIR TODO O ARQUIVO) -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandlabs – Produtos</title>
-
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Estilos pontuais -->
-  <style>
-    .buy-btn{margin-top:1rem;padding:.8rem 1.5rem;background:#f00;color:#fff;border:0;cursor:pointer;border-radius:4px;font-weight:bold;font-size:1rem}
-    .modal{display:none;position:fixed;z-index:10000;inset:0;width:100%;height:100%;overflow:auto;background:rgba(0,0,0,.8)}
-    .modal-content{background:#000;margin:5% auto;padding:20px;border:1px solid #444;width:90%;max-width:600px;color:#fff;position:relative}
-    .close{position:absolute;top:10px;right:20px;color:#fff;font-size:28px;font-weight:bold;cursor:pointer}
-    .modal img.demo{display:block;margin:0 auto 15px;max-width:100%;height:auto}
-    .group{background:rgba(255,255,255,.1);padding:10px;margin-bottom:15px;border-radius:4px}
-    .group p{margin-bottom:5px;font-weight:bold}
-    .option-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;justify-items:center}
-    .option-grid label{display:flex;flex-direction:column;align-items:center;cursor:pointer}
-    .option-grid img{width:40px;height:40px;border:2px solid transparent;transition:border .2s}
-    .option-grid input[type=radio]:checked+img{border:2px solid #f00}
-    .modal input[type=text]{width:100%;padding:8px;margin-top:5px;border:1px solid #444;background:#111;color:#fff;border-radius:4px}
-    .final-btn{margin-top:10px;padding:.7rem 1rem;background:#f00;color:#fff;border:0;cursor:pointer;border-radius:4px;font-weight:bold;width:48%}
-    .final-btn+.final-btn{margin-left:4%}
-  </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sandlabs – Produtos</title>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
-
 <body>
-  <!-- ===== Cabeçalho ===== -->
+  <!-- Cabeçalho -->
   <header>
-    <div class="logo"><img src="images/logo.png" alt="Logo Sandlabs"><span>Sandlabs</span></div>
+    <div class="logo">
+      <img src="images/logo.png" alt="Logo Sandlabs"><span>Sandlabs</span>
+    </div>
     <nav>
       <ul>
         <li><a href="index.html">Início</a></li>
@@ -42,321 +24,23 @@
     </nav>
   </header>
 
-  <!-- ===== Conteúdo principal ===== -->
+  <!-- Conteúdo -->
   <main class="sobre-section">
     <h2 style="text-align:center;margin-bottom:2rem">Galeria de Produtos</h2>
-
-    <!-- === JADE DIY ======================================================= -->
-    <section class="produto-section">
-      <h3>Jade DIY</h3>
-      <div class="galeria" id="galeria-jade">
-        <img src="images/jade1.png" alt="Jade 1" onclick="abrirImagem('jade',0)">
-        <img src="images/jade2.png" alt="Jade 2" onclick="abrirImagem('jade',1)">
-        <img src="images/jade3.png" alt="Jade 3" onclick="abrirImagem('jade',2)">
-        <img src="images/jade4.png" alt="Jade 4" onclick="abrirImagem('jade',3)">
-        <img src="images/jade5.png" alt="Jade 5" onclick="abrirImagem('jade',4)">
-        <img src="images/jade6.png" alt="Jade 6" onclick="abrirImagem('jade',5)">
-        <img src="images/jade7.png" alt="Jade 7" onclick="abrirImagem('jade',6)">
-        <img src="images/jade8.png" alt="Jade 8" onclick="abrirImagem('jade',7)">
-        <img src="images/jade9.png" alt="Jade 9" onclick="abrirImagem('jade',8)">
-      </div>
-
-      <div class="desc-box">
-        <h3>Informações sobre a Jade DIY</h3>
-        <p>Resumo: carteira de hardware open‑source, segura e flexível.</p>
-        <p><strong>Preço:</strong> Jade DIY R$ 230 • Box de Proteção R$ 70</p>
-
-        <button class="info-btn" onclick="toggleInfo()">+ Informações</button>
-        <div id="infoDetalhada" style="display:none;margin-top:1rem">
-          <h4>Documentação do Dispositivo JADE DIY</h4>
-          <p><strong>Introdução:</strong> dispositivo seguro e transparente.</p>
-          <p><strong>Por que hardware open source?</strong> <a href="https://plebs.substack.com/p/hard-wallets-seguras" target="_blank">Artigo</a></p>
-          <p><strong>Conectividade:</strong> GreenWallet • SideSwap • Sparrow • Electrum</p>
-          <p><strong>Atualizações:</strong> via navegador / binários Sandmann / compilação GitHub</p>
-          <p><strong>Bateria:</strong> interna (indicação limitada)</p>
-          <p><strong>Segurança:</strong> Secure‑element virtual Oracle</p>
-          <p>Tutorial: <a href="https://www.youtube.com/watch?v=k-maFZiKSw4" target="_blank">YouTube</a></p>
-          <p><a href="https://docs.google.com/document/d/1Bf8O-R478woq8z7Z8DnN9XlfGf9B3GT8rn0qgJiAUHM/edit?usp=sharing" target="_blank">Documentação completa</a></p>
-        </div>
-
-        <button class="buy-btn" onclick="openBuyModal()">Comprar Jade DIY</button>
-      </div>
-    </section>
-
-    <!-- === KRUX YAHBOOM ==================================================== -->
-    <section class="produto-section">
-      <h3>Krux Yahboom Modcase</h3>
-      <div class="galeria" id="galeria-krux">
-        <img src="images/krux1.png" alt="Krux 1" onclick="abrirImagem('krux',0)">
-        <img src="images/krux2.png" alt="Krux 2" onclick="abrirImagem('krux',1)">
-        <img src="images/krux3.png" alt="Krux 3" onclick="abrirImagem('krux',2)">
-        <img src="images/krux4.png" alt="Krux 4" onclick="abrirImagem('krux',3)">
-      </div>
-
-      <div class="desc-box">
-        <h3>Informações sobre a Krux Yahboom Modcase</h3>
-        <p>Resumo: modcase com bateria; placa electrónica não inclusa.</p>
-        <p><strong>Preço:</strong> Modcase R$ 250 • Box R$ 89</p>
-
-        <button class="info-btn" onclick="toggleInfoKrux()">+ Informações</button>
-        <div id="infoDetalhadaKrux" style="display:none;margin-top:1rem">
-          <h4>Detalhes Técnicos</h4>
-          <p>Inclui bateria e box de proteção (placa não inclusa).</p>
-          <p>Tutorial: <a href="https://www.youtube.com/watch?v=V48RpmuZEwI" target="_blank">YouTube</a></p>
-          <p>Placa referência: <a href="https://pt.aliexpress.com/item/1005007945453981.html" target="_blank">AliExpress</a></p>
-          <p>Documentação: <a href="https://docs.google.com/document/d/1s70HUmdX3XX08GbINxEAay5eK_D3c4RLReKuautZYB4/edit?usp=sharing" target="_blank">Google Docs</a></p>
-          <p>Encomenda completa: ~25 dias • R$ 775 + R$ 89 (box)</p>
-        </div>
-
-        <button class="buy-btn" onclick="openBuyModalKrux()">Comprar Modcase</button>
-      </div>
-    </section>
-
-    <!-- === NERDMINER ======================================================= -->
-    <section class="produto-section">
-      <h3>NerdMiner</h3>
-      <div class="galeria" id="galeria-nerd">
-        <img src="images/nm1.png" alt="NerdMiner 1" onclick="abrirImagem('nerd',0)">
-        <img src="images/nm2.png" alt="NerdMiner 2" onclick="abrirImagem('nerd',1)">
-        <img src="images/nm3.png" alt="NerdMiner 3" onclick="abrirImagem('nerd',2)">
-      </div>
-
-      <div class="desc-box">
-        <h3>Informações sobre o NerdMiner</h3>
-        <p>Mini‑miner (TTGO T‑Display) rodando NerdMiner‑v2.</p>
-        <p><strong>Preço:</strong> NerdMiner (sem bateria) R$ 170</p>
-
-        <button class="info-btn" onclick="toggleInfoNerd()">+ Informações</button>
-        <div id="infoDetalhadaNerd" style="display:none;margin-top:1rem">
-          <p>• ~55 KH/s • Stratum / pools self‑custody.<br>
-             • Firmware: <a href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank">GitHub</a>.<br>
-             • USB‑C 5 V • Tutorial: <a href="https://www.youtube.com/watch?v=Cq0y1034oq8" target="_blank">YouTube</a>.</p>
-        </div>
-
-        <button class="buy-btn" onclick="openBuyModalNerd()">Comprar NerdMiner</button>
-      </div>
-    </section>
-
-   <!-- === SANDSEED ======================================================== -->
-<section class="produto-section">
-  <h3>SandSeed – placas para backup de seed</h3>
-
-  <div class="galeria" id="galeria-sandseed">
-    <img src="images/sandseed1.png" alt="SandSeed 1" onclick="abrirImagem('sandseed',0)">
-    <img src="images/sandseed2.png" alt="SandSeed 2" onclick="abrirImagem('sandseed',1)">
-
-  </div>
-
-  <div class="desc-box">
-    <h3>Informações sobre a SandSeed</h3>
-    <p>Kit Stakbit 1248 – 5 placas plásticas (3 lisas + 2 perfuradas, padrão BIP‑39).</p>
-    <p><strong>Preço:</strong> 1 un → 2 000 sats • Kit 5 un → 5 000 sats</p>
-
-    <button class="info-btn" onclick="toggleInfoSeed()">+ Informações</button>
-    <div id="infoDetalhadaSeed" style="display:none;margin-top:1rem">
-      <p><strong>Como usar:</strong> coloque a placa sobre base firme e
-         perfure cada letra com estilete, agulha grossa ou punção.</p>
-         <p><strong>Utilidade:</strong>permite gravar, de forma física, offline 
-          e resistente ao fogo/água, as 24 palavras da sua seed BIP‑39, protegendo‑a de falhas digitais e ambientais.</p>
-      <p>Tutorial completo:&nbsp;
-         <a href="https://stackbit.me/tutorial-stackbit-1248/" target="_blank">
-           Vídeo oficial (YouTube / Stackbit)
-         </a></p>
-
-      <p style="font-size:.9rem;color:#ccc">
-        Design original por <a href="https://twitter.com/valandro" target="_blank">@Valandro</a>.  
-        Versão em aço inox disponível na
-        <a href="https://stackbit.me/tutorial-stackbit-1248/#loja" target="_blank">loja do autor</a>.
-      </p>
-    </div>
-
-    <button class="buy-btn" onclick="openBuyModalSeed()">Comprar SandSeed</button>
-  </div>
-</section>
-
+    <!-- Container onde tudo será gerado dinamicamente -->
+    <div id="produtos-container"></div>
   </main>
 
-  <!-- ===== Modal Jade DIY ================================================= -->
-  <div id="buyModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeBuyModal()">&times;</span>
-      <img src="images/cor_exemplo.png" class="demo" alt="Demonstração">
-      <h3>Opções para sua Jade DIY</h3>
+  <!-- Modal genérico de compra (montado dinamicamente) -->
+  <!-- Lightbox também é montado dinamicamente -->
 
-      <form id="buyForm">
-        <div class="group">
-          <p><strong>Jade DIY</strong></p>
-          <p>Case:</p><div class="option-grid" data-color-input="jadeColor"></div><br>
-          <p>Botões:</p><div class="option-grid" data-color-input="buttonColor"></div>
-        </div>
-
-        <div class="group">
-          <p><strong>Box de Proteção</strong></p>
-          <p>Box:</p><div class="option-grid" data-color-input="boxColor"></div><br>
-          <p>Alças:</p><div class="option-grid" data-color-input="handleColor"></div>
-        </div>
-        <!-- Add‑on SandSeed ------------------------------------------------------>
-        <div class="group">
-          <label>
-            <input type="checkbox" name="addSeedKit">
-            Adicionar <strong>Kit SandSeed (5 placas)</strong> 
-          </label>
-        </div>
-
-        <div class="group"><p>CEP:</p><input type="text" name="cep" placeholder="Seu CEP" required></div>
-        <div class="group"><p style="font-style:italic;color:#ccc">Cupom (opcional):</p><input type="text" name="cupom" placeholder="Cupom"></div>
-
-        <div style="text-align:center">
-          <button type="button" class="final-btn" onclick="confirmPurchaseWhats()">WhatsApp</button>
-          <button type="button" class="final-btn" onclick="confirmPurchaseTele()">Telegram</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== Modal Krux ===================================================== -->
-  <div id="buyModalKrux" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeBuyModalKrux()">&times;</span>
-      <img src="images/cor_exemplo.png" class="demo" alt="Demonstração">
-      <h3>Opções para seu Krux Modcase</h3>
-
-      <form id="buyFormKrux">
-        <div class="group">
-          <p><strong>Modcase</strong> (opcional)</p>
-          <div class="option-grid" data-color-input="kruxColor"></div>
-        </div>
-
-        <div class="group">
-          <p><strong>Box de Proteção</strong> (opcional)</p>
-          <p>Box:</p><div class="option-grid" data-color-input="kruxBoxColor"></div><br>
-          <p>Alças:</p><div class="option-grid" data-color-input="kruxHandleColor"></div>
-        </div>
-
-        <!-- Add‑on SandSeed ------------------------------------------------------>
-        <div class="group">
-          <label>
-            <input type="checkbox" name="addSeedKit">
-            Adicionar <strong>Kit SandSeed (5 placas)</strong> 
-          </label>
-        </div>        
-
-        <div class="group"><p>CEP:</p><input type="text" name="kruxCep" placeholder="Seu CEP" required></div>
-        <div class="group"><p style="font-style:italic;color:#ccc">Cupom (opcional):</p><input type="text" name="kruxCupom" placeholder="Cupom"></div>
-
-        <div style="text-align:center">
-          <button type="button" class="final-btn" onclick="confirmPurchaseWhatsKruxModal()">WhatsApp</button>
-          <button type="button" class="final-btn" onclick="confirmPurchaseTeleKruxModal()">Telegram</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== Modal NerdMiner =============================================== -->
-  <div id="buyModalNerd" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeBuyModalNerd()">&times;</span>
-      <img src="images/cor_exemplo.png" class="demo" alt="Demonstração">
-      <h3>Opções para seu NerdMiner</h3>
-
-      <form id="buyFormNerd">
-        <div class="group">
-          <p><strong>Case impressa</strong></p>
-          <div class="option-grid" data-color-input="nerdCaseColor"></div><br>
-          <p><strong>Botões</strong></p>
-          <div class="option-grid" data-color-input="nerdButtonColor"></div>
-        </div>
-
-        <!-- Add‑on SandSeed ------------------------------------------------------>
-        <div class="group">
-          <label>
-            <input type="checkbox" name="addSeedKit">
-            Adicionar <strong>Kit SandSeed (5 placas)</strong> 
-          </label>
-        </div>
-        
-        <div class="group"><p>CEP:</p><input type="text" name="nerdCep" placeholder="Seu CEP" required></div>
-        <div class="group"><p style="font-style:italic;color:#ccc">Cupom (opcional):</p><input type="text" name="nerdCupom" placeholder="Cupom"></div>
-
-        <div style="text-align:center">
-          <button type="button" class="final-btn" onclick="confirmPurchaseWhatsNerdModal()">WhatsApp</button>
-          <button type="button" class="final-btn" onclick="confirmPurchaseTeleNerdModal()">Telegram</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== Modal SandSeed ================================================ -->
-  <div id="buyModalSeed" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeBuyModalSeed()">&times;</span>
-      <img src="images/sandseed_demo.png" class="demo" alt="SandSeed">
-      <h3>Opções para sua SandSeed</h3>
-
-      <form id="buyFormSeed">
-        <div class="group">
-          <p><strong>Selecione:</strong></p>
-          <label><input type="radio" name="seedPack" value="kit" required checked>Kit 5 un – 5 000 sats</label><br>
-          <label><input type="radio" name="seedPack" value="single">Placa avulsa – 2 000 sats</label>
-
-          <div id="seedQtyBox" style="display:none;margin-top:8px">
-            <p>Quantidade de placas:</p>
-            <input type="number" name="seedQty" min="1" max="10" value="1">
-          </div>
-        </div>
-
-        <div class="group"><p>CEP:</p><input type="text" name="seedCep" placeholder="Seu CEP" required></div>
-        <div class="group"><p style="font-style:italic;color:#ccc">Cupom (opcional):</p><input type="text" name="seedCupom" placeholder="Cupom"></div>
-
-        <div style="text-align:center">
-          <button type="button" class="final-btn" onclick="confirmPurchaseWhatsSeed()">WhatsApp</button>
-          <button type="button" class="final-btn" onclick="confirmPurchaseTeleSeed()">Telegram</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ===== Lightbox ======================================================= -->
-  <div class="lightbox" id="lightbox">
-    <span class="close-btn" onclick="fecharLightbox()">×</span>
-    <img id="imagemModal" alt="Imagem Expandida">
-    <button class="nav-btn prev-btn" onclick="imagemAnterior()">&#10094;</button>
-    <button class="nav-btn next-btn" onclick="proximaImagem()">&#10095;</button>
-  </div>
-
-  <!-- ===== Scripts ======================================================== -->
-  <script src="js/produtos.js"></script>
-  <script>
-    /* toggles básicos */
-    const toggle=id=>{const e=document.getElementById(id);e.style.display=e.style.display==='none'?'block':'none'};
-    const show=id=>document.getElementById(id).style.display='block';
-    const hide=id=>document.getElementById(id).style.display='none';
-
-    function toggleInfo(){toggle('infoDetalhada')}
-    function toggleInfoKrux(){toggle('infoDetalhadaKrux')}
-
-    /* Cupom via query‑string / localStorage */
-    window.addEventListener('DOMContentLoaded',()=>{
-      const p=new URLSearchParams(location.search);
-      const c=p.get('cupom')||localStorage.getItem('cupom')||'';
-      if(c){
-        localStorage.setItem('cupom',c);
-        document.querySelectorAll('input[name=cupom],input[name=kruxCupom],input[name=nerdCupom],input[name=seedCupom]')
-                .forEach(i=>i.value=c);
-        document.querySelectorAll('a').forEach(a=>{
-          const href=a.getAttribute('href');
-          if(href&&!href.startsWith('http')&&!href.includes('cupom=')){
-            a.href+=href.includes('?')?`&cupom=${encodeURIComponent(c)}`:`?cupom=${encodeURIComponent(c)}`;
-          }
-        });
-      }
-    });
-
-    /* Exibe campo de quantidade quando “Placa avulsa” é escolhida */
-    document.getElementById('buyFormSeed').seedPack.forEach(r=>{
-      r.addEventListener('change',()=>document.getElementById('seedQtyBox').style.display=
-        r.value==='single'&&r.checked?'block':'none');
-    });
-  </script>
+  <!-- Scripts (ordem importa) -->
+  <script src="js/config.js"></script>
+  <script src="js/produtos-data.js"></script>
+  <script src="js/cupom.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/color-selector.js"></script>
+  <script src="js/compras.js"></script>
+  <script src="js/render-produtos.js"></script>
 </body>
 </html>
