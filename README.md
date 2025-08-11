@@ -1,4 +1,4 @@
-# Sandlabs.store
+# www.Sandlabs.store
 
 Este projeto é uma loja open-source voltada para a venda de produtos relacionados ao universo Bitcoin. Você pode copiar e usar este repositório para criar sua própria loja Bitcoinheira.
 
