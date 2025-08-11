@@ -1,99 +1,143 @@
-// /js/compras.js  (NOVO ARQUIVO)
+// /js/compras.js  (SUBSTITUIR TODO O ARQUIVO)
+// Finalização de compra automática baseada apenas no /js/produtos-data.js
+
 (function(){
-  const COMPOSERS = {
-    jade(d) {
-      const hasJade = d.jadeColor && d.buttonColor;
-      const hasBox  = d.boxColor  && d.handleColor;
+  const WHATS = '5544997272087';
+  const TELEGRAM = 'SandLabs_21';
 
-      if ((d.jadeColor && !d.buttonColor) || (!d.jadeColor && d.buttonColor))
-        return { ok:false, alert:'Selecione ambas as cores para a Jade DIY (Case e Botões) ou deixe ambas em branco.' };
-
-      if ((d.boxColor && !d.handleColor) || (!d.boxColor && d.handleColor))
-        return { ok:false, alert:'Selecione ambas as cores para a Box de Proteção (Box e Alças) ou deixe ambas em branco.' };
-
-      if (!hasJade && !hasBox)
-        return { ok:false, alert:'Selecione ao menos Jade DIY ou Box de Proteção.' };
-
-      let msg = 'vim pelo site sandlabs.store e gostaria de pedir uma\n';
-      if (hasJade) msg += `-jade (${d.jadeColor}) com botões (${d.buttonColor})\n`;
-      if (hasJade && hasBox) msg += 'e uma \n';
-      if (hasBox)  msg += `-box de proteção (${d.boxColor}) com alças (${d.handleColor})\n`;
-      return { ok:true, msg };
-    },
-
-    krux(d) {
-      const hasMod  = !!d.kruxColor;
-      const hasBox  = d.kruxBoxColor && d.kruxHandleColor;
-
-      if ((d.kruxBoxColor && !d.kruxHandleColor) || (!d.kruxBoxColor && d.kruxHandleColor))
-        return { ok:false, alert:'Selecione ambas as cores para o Box de Proteção (Box e Alças) ou deixe ambas em branco.' };
-
-      if (!hasMod && !hasBox)
-        return { ok:false, alert:'Selecione a cor do Modcase ou as cores do Box de Proteção.' };
-
-      let msg = 'vim pelo site sandlabs.store e gostaria de pedir uma\n';
-      if (hasMod) msg += `-krux yahboom modcase: Modcase (${d.kruxColor})\n`;
-      if (hasMod && hasBox) msg += 'e uma \n';
-      if (hasBox) msg += `-box de proteção: Box (${d.kruxBoxColor}) com Alças (${d.kruxHandleColor})\n`;
-      return { ok:true, msg };
-    },
-
-    nerd(d) {
-      const caseCol = d.nerdCaseColor, btnCol = d.nerdButtonColor;
-
-      if ((caseCol && !btnCol) || (!caseCol && btnCol))
-        return { ok:false, alert:'Selecione ambas as cores do NerdMiner (Case e Botões) ou deixe ambas em branco.' };
-
-      if (!caseCol && !btnCol)
-        return { ok:false, alert:'Selecione a cor do Case e dos Botões do NerdMiner.' };
-
-      let msg = 'vim pelo site sandlabs.store e gostaria de pedir um\n';
-      msg += `-NerdMiner: Case (${caseCol}) com Botões (${btnCol})\n`;
-      return { ok:true, msg };
-    },
-
-    sandseed(d) {
-      let msg = 'vim pelo site sandlabs.store e gostaria de pedir\n';
-      if (d.seedPack === 'kit' || !d.seedPack) {
-        msg += '-SandSeed: kit 5 un (3 lisas + 2 perfuradas) – 5 000 sats\n';
-      } else {
-        const q = Math.max(1, Number(d.seedQty || 1));
-        msg += `-SandSeed: ${q} placa(s) avulsas – ${q * 2000} sats\n`;
-      }
-      return { ok:true, msg };
-    }
-  };
-
-  function finalizeCompra(form, produtoId, plataforma) {
-    const data = Object.fromEntries(new FormData(form).entries());
-    const produto = (window.PRODUTOS || []).find(p => p.id === produtoId);
-    if (!produto) { alert('Produto não encontrado.'); return; }
-
-    const cep = (data.cep || '').trim();
-    const cupom = (data.cupom || '').trim();
-
-    const composer = COMPOSERS[produtoId];
-    if (!composer) { alert('Produto não suportado.'); return; }
-
-    const res = composer(data);
-    if (!res.ok) { alert(res.alert || 'Verifique as opções selecionadas.'); return; }
-
-    let msg = res.msg;
-
-    // Add-on SandSeed (para produtos que não são SandSeed e permitem o extra)
-    if (produto.allowAddOnSeed && produtoId !== 'sandseed' && data.addSeedKit) {
-      msg += '-SandSeed: kit 5 un (3 lisas + 2 perfuradas) – 5 000 sats\n';
-    }
-
-    msg += `\nPode calcular o frete para o CEP: ${cep}`;
-    if (cupom) msg += `\nvim pelo (${cupom})`;
-
-    const url = (plataforma === 'whats')
-      ? `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`
-      : `https://t.me/${CONFIG.telegramUsername}?text=${encodeURIComponent(msg)}`;
-
-    window.open(url, '_blank');
+  function findProductById(id){
+    const list = (window.PRODUTOS || []);
+    return list.find(p => p.id === id) || null;
   }
 
-  window.finalizeCompra = finalizeCompra;
+  function formDataToObject(form){
+    const data = {};
+    const fd = new FormData(form);
+    for (const [k, v] of fd.entries()){
+      // se for checkbox sem valor custom, trate como "on"
+      if (data[k] !== undefined){
+        // múltiplos valores com mesmo name (se houver)
+        if (!Array.isArray(data[k])) data[k] = [data[k]];
+        data[k].push(v);
+      } else {
+        data[k] = v;
+      }
+    }
+    // checkboxes desmarcados não vêm no FormData; garantimos flags
+    form.querySelectorAll('input[type="checkbox"]').forEach(ch=>{
+      if (!(ch.name in data)) data[ch.name] = false;
+      else if (data[ch.name] === 'on') data[ch.name] = true;
+    });
+    return data;
+  }
+
+  function pickField(obj, hint){
+    // retorna o primeiro valor cujo nome contenha "hint" (case-insensitive)
+    const k = Object.keys(obj).find(key => key.toLowerCase().includes(hint));
+    return k ? obj[k] : '';
+  }
+
+  function sanitize(val){ return (val || '').toString().trim(); }
+
+  function buildOptionLines(prod, d){
+    const lines = [];
+    let error = '';
+
+    (prod.options || []).forEach(opt=>{
+      if (opt.type === 'colorPair'){
+        const a = opt.inputs?.[0];
+        const b = opt.inputs?.[1];
+        const va = sanitize(d[a?.name]);
+        const vb = sanitize(d[b?.name]);
+        if ((va && !vb) || (!va && vb)){
+          error = `Selecione ambas as cores para “${opt.title}” ou deixe ambas em branco.`;
+          return;
+        }
+        if (va && vb){
+          lines.push(`- ${opt.title}: ${a?.label||'A'} (${va}) + ${b?.label||'B'} (${vb})`);
+        }
+      }
+
+      if (opt.type === 'colorSingle'){
+        const i = opt.input;
+        const v = sanitize(d[i?.name]);
+        if (v){
+          lines.push(`- ${opt.title}: ${i?.label||opt.title} (${v})`);
+        }
+      }
+
+      if (opt.type === 'seedPack'){
+        const pack = sanitize(d.seedPack);
+        if (pack === 'kit'){
+          lines.push(`- SandSeed: kit 5 un (3 lisas + 2 perfuradas)`);
+        } else if (pack === 'single'){
+          const q = Math.max(1, parseInt(d.seedQty || '1', 10) || 1);
+          lines.push(`- SandSeed: ${q} placa(s) avulsas`);
+        }
+      }
+    });
+
+    return { lines, error };
+  }
+
+  function buildMessage(prod, d){
+    const { lines, error } = buildOptionLines(prod, d);
+    if (error) return { error, msg:'' };
+
+    let msg = 'vim pelo site sandlabs.store e gostaria de pedir\n';
+    msg += `-${prod.nome}\n`;
+    if (lines.length){
+      msg += lines.join('\n') + '\n';
+    }
+
+    // add-on SandSeed (se disponível no produto)
+    const addSeed = !!d.addSeedKit;
+    if (addSeed && prod.allowAddOnSeed){
+      msg += '- Adicionar: Kit SandSeed (5 placas)\n';
+    }
+
+    // CEP e cupom
+    const cep   = sanitize(pickField(d,'cep'));
+    const cupom = sanitize(pickField(d,'cupom'));
+    if (cep)   msg += `\npode calcular o frete para o cep: ${cep}`;
+    if (cupom) msg += `\nvim pelo (${cupom})`;
+
+    return { error:'', msg };
+  }
+
+  // API principal
+  window.finalizeCompra = function(form, produtoId, plataforma){
+    const prod = findProductById(produtoId);
+    if (!prod){
+      alert('Produto não encontrado.');
+      return;
+    }
+
+    const d = formDataToObject(form);
+    const { error, msg } = buildMessage(prod, d);
+    if (error){
+      alert(error);
+      return;
+    }
+
+    const url = (plataforma === 'whats')
+      ? `https://wa.me/${WHATS}?text=${encodeURIComponent(msg)}`
+      : `https://t.me/${TELEGRAM}?text=${encodeURIComponent(msg)}`;
+
+    window.open(url, '_blank');
+  };
+
+  // Wrappers de compatibilidade com HTML antigo (mantêm funcionamento legado)
+  window.confirmPurchaseWhats           = ()=> finalizeCompra(document.getElementById('buyForm'),       'jade','whats');
+  window.confirmPurchaseTele            = ()=> finalizeCompra(document.getElementById('buyForm'),       'jade','tele');
+  window.confirmPurchaseWhatsKruxModal  = ()=> finalizeCompra(document.getElementById('buyFormKrux'),   'krux','whats');
+  window.confirmPurchaseTeleKruxModal   = ()=> finalizeCompra(document.getElementById('buyFormKrux'),   'krux','tele');
+  window.confirmPurchaseWhatsNerdModal  = ()=> finalizeCompra(document.getElementById('buyFormNerd'),   'nerd','whats');
+  window.confirmPurchaseTeleNerdModal   = ()=> finalizeCompra(document.getElementById('buyFormNerd'),   'nerd','tele');
+  window.confirmPurchaseWhatsSeed       = ()=> finalizeCompra(document.getElementById('buyFormSeed'),   'sandseed','whats');
+  window.confirmPurchaseTeleSeed        = ()=> finalizeCompra(document.getElementById('buyFormSeed'),   'sandseed','tele');
+  window.confirmPurchaseWhatsPico       = ()=> finalizeCompra(document.getElementById('buyFormPico'),   'pico','whats');
+  window.confirmPurchaseTelePico        = ()=> finalizeCompra(document.getElementById('buyFormPico'),   'pico','tele');
+  window.confirmPurchaseWhatsKruxCaseModal = ()=> finalizeCompra(document.getElementById('buyFormKruxCase'), 'kruxcase','whats');
+  window.confirmPurchaseTeleKruxCaseModal  = ()=> finalizeCompra(document.getElementById('buyFormKruxCase'), 'kruxcase','tele');
 })();
