@@ -175,7 +175,7 @@ window.PRODUTOS = [
   {
     id: 'ttgo-case-bateria',
     nome: 'Case TTGO T-Display (com bateria)',
-    imagens: ['images/jade2.png','images/jade3.png','images/jade7.png','images/jade9.png'],
+    imagens: ['images/jadecase2.png','images/jadecase3.png','images/jadecase7.png','images/jade9.png'],
     resumo: 'Case para TTGO T-Display com bateria integrada. *Não inclui a placa.',
     preco: [
       { label: 'Case c/ bateria', valor: 'R$ 120' },
