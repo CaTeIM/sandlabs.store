@@ -168,5 +168,111 @@ window.PRODUTOS = [
     allowAddOnSeed: true,
     buyButtonText: 'Comprar Case',
     badge: { text:'3D', variant:'neutral' }
-  }
+  },
+
+
+
+  {
+    id: 'ttgo-case-bateria',
+    nome: 'Case TTGO T-Display (com bateria)',
+    imagens: ['images/jade2.png','images/jade3.png','images/jade7.png','images/jade9.png'],
+    resumo: 'Case para TTGO T-Display com bateria integrada. *Não inclui a placa.',
+    preco: [
+      { label: 'Case c/ bateria', valor: 'R$ 120' },
+      { label: 'Box de Proteção', valor: 'R$ 70' }
+    ],
+    detalhesHTML: `
+      <p><strong>Compatibilidade:</strong> TTGO T-Display.</p>
+      <p><strong>Observação:</strong> produto se refere apenas ao <em>case</em>; a placa TTGO não está inclusa.</p>
+      <p><strong>TTGO T-Display (referência):</strong>
+        <a href="https://pt.aliexpress.com/item/1005005970553639.html?channel=twinner" target="_blank">AliExpress</a>
+      </p>
+      <p><strong>Montagem (vídeo):</strong> <a href="https://youtu.be/S5LI_bG9f1U" target="_blank">YouTube</a></p>
+    `,
+    options: [
+      { type: 'colorPair', title: 'Cores do Case', inputs: [
+        { name:'ttgoCaseColor',   label:'Case'   },
+        { name:'ttgoButtonColor', label:'Botões' }
+      ]},
+      { type: 'colorPair', title: 'Box de Proteção (opcional)', inputs: [
+        { name:'ttgoBoxColor',    label:'Box'   },
+        { name:'ttgoHandleColor', label:'Alças' }
+      ]}
+    ],
+    allowAddOnSeed: true,
+    buyButtonText: 'Comprar Case (c/ bateria)',
+    badge: { text:'Novo', variant:'new' }
+  },
+
+  {
+    id: 'jade-diy-sem-bateria',
+    nome: 'Jade DIY (TTGO T-Display, sem bateria)',
+    imagens: ['images/jade2.png','images/jade3.png','images/jade7.png','images/jade9.png'],
+    resumo: 'Case para Jade DIY sem bateria integrada. *Não inclui a placa.',
+    preco: [
+      { label: 'Jade DIY (sem bateria)', valor: 'R$ 150' },
+      { label: 'Box de Proteção', valor: 'R$ 70' }
+    ],
+    detalhesHTML: `
+      <p><strong>Compatibilidade:</strong> TTGO T-Display (Jade DIY).</p>
+      <p><strong>Observação:</strong> produto se refere apenas ao <em>case</em> sem bateria; a placa TTGO não está inclusa.</p>
+      <p><strong>TTGO T-Display (referência):</strong>
+        <a href="https://pt.aliexpress.com/item/1005005970553639.html?channel=twinner" target="_blank">AliExpress</a>
+      </p>
+      <p><strong>Documentação Jade DIY:</strong>
+        <a href="https://docs.google.com/document/d/1Bf8O-R478woq8z7Z8DnN9XlfGf9B3GT8rn0qgJiAUHM/edit?usp=sharing" target="_blank">Google Docs</a>
+      </p>
+      <p><strong>Montagem (vídeo):</strong> <a href="https://youtu.be/S5LI_bG9f1U" target="_blank">YouTube</a></p>
+    `,
+    options: [
+      { type: 'colorPair', title: 'Cores do Case', inputs: [
+        { name:'jadeNoBatCaseColor',   label:'Case'   },
+        { name:'jadeNoBatButtonColor', label:'Botões' }
+      ]},
+      { type: 'colorPair', title: 'Box de Proteção (opcional)', inputs: [
+        { name:'jadeNoBatBoxColor',    label:'Box'   },
+        { name:'jadeNoBatHandleColor', label:'Alças' }
+      ]}
+    ],
+    allowAddOnSeed: true,
+    buyButtonText: 'Comprar Jade DIY (sem bateria)',
+    badge: { text:'Econômico', variant:'neutral' }
+  },
+
+{
+  id: 'ttgo-case-sem-bateria',
+  nome: 'TTGO T-Display — Case (sem bateria)',
+  imagens: ['images/jade2.png','images/jade3.png','images/jade7.png','images/jade9.png'],
+  resumo: 'Case para TTGO T-Display SEM bateria integrada. *Não inclui a placa.',
+  preco: [
+    { label: 'Case sem bateria', valor: 'R$ 70' },
+    { label: 'Box de Proteção', valor: 'R$ 70' }
+  ],
+  detalhesHTML: `
+    <p><strong>Compatibilidade:</strong> TTGO T-Display.</p>
+    <p><strong>Observação:</strong> produto refere-se apenas ao <em>case</em> sem bateria; a placa TTGO não está inclusa.</p>
+    <p><strong>TTGO T-Display (referência de compra):</strong>
+      <a href="https://pt.aliexpress.com/item/1005005970553639.html?channel=twinner" target="_blank">AliExpress</a>
+    </p>
+    <p><strong>Montagem (vídeo):</strong> <a href="https://youtu.be/S5LI_bG9f1U" target="_blank">YouTube</a></p>
+  `,
+  options: [
+    { type: 'colorPair', title: 'Cores do Case', inputs: [
+      { name:'ttgoNoBatCaseColor',   label:'Case'   },
+      { name:'ttgoNoBatButtonColor', label:'Botões' }
+    ]},
+    { type: 'colorPair', title: 'Box de Proteção (opcional)', inputs: [
+      { name:'ttgoNoBatBoxColor',    label:'Box'   },
+      { name:'ttgoNoBatHandleColor', label:'Alças' }
+    ]}
+  ],
+  allowAddOnSeed: true,
+  buyButtonText: 'Comprar Case (sem bateria)',
+  badge: { text:'Sem bateria', variant:'neutral' }
+},
+
+
+
+
 ];
+
