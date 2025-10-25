@@ -1,4 +1,3 @@
-# /srv/camilla/update.sh
 #!/bin/bash
 set -e
 cd "$(dirname "$0")"
@@ -13,7 +12,7 @@ if [ "$LOCAL" != "$REMOTE" ]; then
   echo "Atualização detectada. Executando git pull..."
   git reset --hard origin/main
   git clean -fd
-  docker exec camilla nginx -s reload
+  docker exec store nginx -s reload
   echo "Atualização aplicada em $(date)"
 else
   echo "Nenhuma atualização encontrada."
