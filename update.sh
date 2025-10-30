@@ -4,13 +4,13 @@ cd "$(dirname "$0")"
 
 echo "--- Verificando atualizações em $(date) ---"
 
-git fetch origin main
+git fetch origin master
 LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse origin/main)
+REMOTE=$(git rev-parse origin/master)
 
 if [ "$LOCAL" != "$REMOTE" ]; then
   echo "Atualização detectada. Executando git pull..."
-  git reset --hard origin/main
+  git reset --hard origin/master
   git clean -fd
   docker exec store nginx -s reload
   echo "Atualização aplicada em $(date)"
